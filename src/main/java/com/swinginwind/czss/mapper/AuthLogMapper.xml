@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.swinginwind.czss.mapper.AuthLogMapper" >
+  <resultMap id="BaseResultMap" type="com.swinginwind.czss.entity.AuthLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="run_times" property="runTimes" jdbcType="INTEGER" />
+    <result column="auth_time" property="authTime" jdbcType="DECIMAL" />
+    <result column="encrypt_time" property="encryptTime" jdbcType="DECIMAL" />
+    <result column="compare_time" property="compareTime" jdbcType="DECIMAL" />
+    <result column="result" property="result" jdbcType="DECIMAL" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="progress_status" property="progressStatus" jdbcType="VARCHAR" />
+    <result column="progress_percent" property="progressPercent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, run_times, auth_time, encrypt_time, compare_time, result, detail, progress_status, 
+    progress_percent, create_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from auth_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.swinginwind.czss.entity.AuthLog" keyProperty="id" useGeneratedKeys="true" >
+    insert into auth_log (id, type, run_times, 
+      auth_time, encrypt_time, compare_time, 
+      result, detail, progress_status, 
+      progress_percent, create_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{runTimes,jdbcType=INTEGER}, 
+      #{authTime,jdbcType=DECIMAL}, #{encryptTime,jdbcType=DECIMAL}, #{compareTime,jdbcType=DECIMAL}, 
+      #{result,jdbcType=DECIMAL}, #{detail,jdbcType=VARCHAR}, #{progressStatus,jdbcType=VARCHAR}, 
+      #{progressPercent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.swinginwind.czss.entity.AuthLog" >
+    insert into auth_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="runTimes != null" >
+        run_times,
+      </if>
+      <if test="authTime != null" >
+        auth_time,
+      </if>
+      <if test="encryptTime != null" >
+        encrypt_time,
+      </if>
+      <if test="compareTime != null" >
+        compare_time,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="progressStatus != null" >
+        progress_status,
+      </if>
+      <if test="progressPercent != null" >
+        progress_percent,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="runTimes != null" >
+        #{runTimes,jdbcType=INTEGER},
+      </if>
+      <if test="authTime != null" >
+        #{authTime,jdbcType=DECIMAL},
+      </if>
+      <if test="encryptTime != null" >
+        #{encryptTime,jdbcType=DECIMAL},
+      </if>
+      <if test="compareTime != null" >
+        #{compareTime,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="progressStatus != null" >
+        #{progressStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="progressPercent != null" >
+        #{progressPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.swinginwind.czss.entity.AuthLog" >
+    update auth_log
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="runTimes != null" >
+        run_times = #{runTimes,jdbcType=INTEGER},
+      </if>
+      <if test="authTime != null" >
+        auth_time = #{authTime,jdbcType=DECIMAL},
+      </if>
+      <if test="encryptTime != null" >
+        encrypt_time = #{encryptTime,jdbcType=DECIMAL},
+      </if>
+      <if test="compareTime != null" >
+        compare_time = #{compareTime,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="progressStatus != null" >
+        progress_status = #{progressStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="progressPercent != null" >
+        progress_percent = #{progressPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.swinginwind.czss.entity.AuthLog" >
+    update auth_log
+    set type = #{type,jdbcType=VARCHAR},
+      run_times = #{runTimes,jdbcType=INTEGER},
+      auth_time = #{authTime,jdbcType=DECIMAL},
+      encrypt_time = #{encryptTime,jdbcType=DECIMAL},
+      compare_time = #{compareTime,jdbcType=DECIMAL},
+      result = #{result,jdbcType=DECIMAL},
+      detail = #{detail,jdbcType=VARCHAR},
+      progress_status = #{progressStatus,jdbcType=VARCHAR},
+      progress_percent = #{progressPercent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteAll">
+  	delete from auth_log
+  </delete>
+  <select id="select" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_log
+    <where>
+     <if test="type != null and type != ''">
+     	and type = #{type,jdbcType=VARCHAR}
+     </if>
+     <if test="startTime != null">
+        and t.create_time &gt; #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+        and t.create_time &lt; date_add(#{endTime,jdbcType=TIMESTAMP}, interval 1 day)
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+</mapper>

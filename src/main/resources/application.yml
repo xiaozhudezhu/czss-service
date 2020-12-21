@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+      name: mydb  
+      type: com.alibaba.druid.pool.DruidDataSource  
+      username: root
+      password: gener2017
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.3.20:3306/czss?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong
+
+czss:
+  #libPath: D:\ssczlib.dll
+  libPath: /test/ss_cz/ssczlib.so
