@@ -1,9 +1,9 @@
 package com.swinginwind.czss.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.swinginwind.czss.dto.AuthUserInfoPager;
-import com.swinginwind.czss.entity.AuthLog;
 import com.swinginwind.czss.entity.AuthUserInfo;
 
 public interface AuthUserInfoService {
@@ -17,6 +17,10 @@ public interface AuthUserInfoService {
 	public void batchVerifyUserInfo(int runTimes);
 	
 	public List<AuthUserInfo> queryUserInfos(AuthUserInfoPager pager);
+
+	boolean isRunningCreateTestUsers();
+
+	Map<String, Object> verifyUserInfo(String memberId, String name, String mobile);
 
 
 }

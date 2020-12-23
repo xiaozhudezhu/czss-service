@@ -25,4 +25,6 @@ public interface AuthUserInfoMapper {
     int selectMaxRowNum();
     
     List<AuthUserInfo> select(AuthUserInfoPager pager);
+    
+    int insertBatch(List<AuthUserInfo> list);
 }

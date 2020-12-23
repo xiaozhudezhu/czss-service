@@ -1,5 +1,7 @@
 package com.swinginwind.czss.controller;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,15 +47,37 @@ public class CzssController {
 
 	@PostMapping("/createTestUsers")
 	@ApiOperation("创建测试账号（将会先清空测试账号）")
-	public Result<Integer> createTestUsers(@ApiParam(value = "创建数量", defaultValue = "10000") @RequestParam Integer num) {
+	public Result<String> createTestUsers(@ApiParam(value = "创建数量", defaultValue = "10000") @RequestParam Integer num) {
+		if(userService.isRunningCreateTestUsers())
+			return Result.newFailure("创建测试账号线程已经在运行中，请等待完成", null);
 		if (num == null || num == 0)
 			num = 10000;
-		Integer count = userService.createTestUsers(num);
-		return Result.newSuccess(count);
+		int num1 = num;
+		new Thread() {
+			public void run() {
+				userService.createTestUsers(num1);
+			}
+		}.start();
+		return Result.newSuccess("Create Test Users Running");
+	}
+	
+	@PostMapping("/verifyUserInfo")
+	@ApiOperation("身份认证接口，返回是否认证成功")
+	public Result<Map<String, Object>> verifyUserInfo(@ApiParam(value = "账号明文", required = true) @RequestParam String memberId,
+			@ApiParam(value = "用户名明文", required = true) @RequestParam String name,
+			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile) {
+		if (StringUtils.isEmpty(memberId))
+			return Result.newFailure("memberId不能为空", null);
+		if (StringUtils.isEmpty(name))
+			return Result.newFailure("name不能为空", null);
+		if (StringUtils.isEmpty(mobile))
+			return Result.newFailure("mobile不能为空", null);
+		Map<String, Object> result = userService.verifyUserInfo(memberId, name, mobile);
+		return Result.newSuccess(result);
 	}
 
 	@PostMapping("/manualVerifyUserInfo")
-	@ApiOperation("手动身份认证，返回是否认证成功")
+	@ApiOperation("手动身份认证测试，返回是否认证成功")
 	public Result<Boolean> manualVerifyUserInfo(@ApiParam(value = "账号明文", required = true) @RequestParam String memberId,
 			@ApiParam(value = "用户名明文", required = true) @RequestParam String name,
 			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile) {

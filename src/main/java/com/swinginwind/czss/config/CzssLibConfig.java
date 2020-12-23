@@ -17,10 +17,15 @@ public class CzssLibConfig {
 		
 	@Bean
 	public CzssLib getCzssLib() {
-		CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPath, CzssGoLib.class);
-		czssGoLib.Init();
 		CzssLib lib = new CzssLib();
-		lib.setCzssGoLib(czssGoLib);
+		try {
+			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPath, CzssGoLib.class);
+			czssGoLib.Init();
+			lib.setCzssGoLib(czssGoLib);
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+		}
 		return lib;
 	}
 	

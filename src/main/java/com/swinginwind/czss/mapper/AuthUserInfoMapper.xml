@@ -139,4 +139,15 @@
      </if>
     </where>
   </select>
+  <insert id="insertBatch">
+    insert into auth_user_info (id, name, mobile, 
+      id_plain, name_plain, mobile_plain, 
+      row_num)
+    values 
+    <foreach collection ="list" item="user" separator =",">
+         (#{user.id,jdbcType=VARCHAR}, #{user.name,jdbcType=VARCHAR}, #{user.mobile,jdbcType=VARCHAR}, 
+      #{user.idPlain,jdbcType=VARCHAR}, #{user.namePlain,jdbcType=VARCHAR}, #{user.mobilePlain,jdbcType=VARCHAR}, 
+      #{user.rowNum,jdbcType=INTEGER})
+    </foreach >
+  </insert>
 </mapper>
