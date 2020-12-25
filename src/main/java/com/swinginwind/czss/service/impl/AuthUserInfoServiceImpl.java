@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swinginwind.core.utils.MD5Util;
 import com.swinginwind.czss.dto.AuthUserInfoPager;
 import com.swinginwind.czss.entity.AuthLog;
@@ -143,7 +145,20 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 		}
 		else
 			log.setRemark("User Not Exists");
-		log.setDetail(String.valueOf(result));
+		ObjectMapper om = new ObjectMapper();
+		Map<String, Object> json = new HashMap<String, Object>();
+		json.put("result", result);
+		json.put("inputMemberId", memberId);
+		json.put("inputName", name);
+		json.put("inputMobile", mobile);
+		String detail = null;
+		try {
+			detail = om.writeValueAsString(json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.setDetail(detail);
 		log.setProgressStatus("Completed");
 		log.setAuthTime(new BigDecimal(System.nanoTime() - startTimeAuth).divideToIntegralValue(new BigDecimal(1000)));
 		if(logEnabled)
@@ -190,9 +205,23 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 		}
 		else
 			log.setRemark("User Not Exists");
-		log.setDetail(String.valueOf(result));
+		ObjectMapper om = new ObjectMapper();
+		Map<String, Object> json = new HashMap<String, Object>();
+		json.put("result", result);
+		json.put("inputMemberId", memberId);
+		json.put("inputName", name);
+		json.put("inputMobile", mobile);
+		String detail = null;
+		try {
+			detail = om.writeValueAsString(json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.setDetail(detail);
 		log.setProgressStatus("Completed");
 		log.setAuthTime(new BigDecimal(System.nanoTime() - startTimeAuth).divideToIntegralValue(new BigDecimal(1000)));
+		logMapper.insert(log);
 		return result;
 	}
 

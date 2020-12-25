@@ -73,7 +73,7 @@ public class AuthLog {
      * 表 : auth_log
      * 对应字段 : detail
      */
-	@ApiModelProperty("")
+	@ApiModelProperty("手动测试{\"result\":false,\"inputMobile\":\"1\",\"inputMemberId\":\"1\",\"inputName\":\"1\"}；批量测试无效")
     private String detail;
 
     /**
