@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("身份认证测试日志")
-public class AuthLog {
+@ApiModel("多级加密测试日志")
+public class EncryptLog {
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : id
      */
 	@ApiModelProperty("id")
@@ -22,15 +22,15 @@ public class AuthLog {
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : type
      */
-	@ApiModelProperty("类型，Manual/Batch")
+	@ApiModelProperty("类型，Encrypt/Decrypt/Batch")
     private String type;
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : run_times
      */
 	@ApiModelProperty("运行次数")
@@ -38,31 +38,15 @@ public class AuthLog {
 
     /**
      * 
-     * 表 : auth_log
-     * 对应字段 : auth_time
+     * 表 : encrypt_log
+     * 对应字段 : execute_time
      */
-	@ApiModelProperty("平均认证时间(微妙)")
-    private BigDecimal authTime;
+	@ApiModelProperty("执行时间（微妙）")
+    private BigDecimal executeTime;
 
     /**
      * 
-     * 表 : auth_log
-     * 对应字段 : encrypt_time
-     */
-	@ApiModelProperty("平均加密时间(微妙)")
-    private BigDecimal encryptTime;
-
-    /**
-     * 
-     * 表 : auth_log
-     * 对应字段 : compare_time
-     */
-	@ApiModelProperty("平均比较时间(微妙)")
-    private BigDecimal compareTime;
-
-    /**
-     * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : result
      */
 	@ApiModelProperty("准确率")
@@ -70,44 +54,44 @@ public class AuthLog {
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : detail
      */
-	@ApiModelProperty("手动测试{\"result\":false,\"inputMobile\":\"1\",\"inputMemberId\":\"1\",\"inputName\":\"1\"}；批量测试无效")
+    @ApiModelProperty("手动测试{\"result\":\"\",\"inputUserId\":\"1\",\"inputPlainContent\":\"1\"}；批量测试无效")
     private String detail;
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : progress_status
      */
-	@ApiModelProperty("运行状态，Running/Completed")
+    @ApiModelProperty("运行状态，Running/Completed")
     private String progressStatus;
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : progress_percent
      */
-	@ApiModelProperty("运行进度")
+    @ApiModelProperty("运行进度")
     private String progressPercent;
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : create_time
      */
-	@ApiModelProperty("创建时间")
+    @ApiModelProperty("创建时间")
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
 
     /**
      * 
-     * 表 : auth_log
+     * 表 : encrypt_log
      * 对应字段 : remark
      */
-	@ApiModelProperty("备注")
+    @ApiModelProperty("备注")
     private String remark;
 
     public Integer getId() {
@@ -134,28 +118,12 @@ public class AuthLog {
         this.runTimes = runTimes;
     }
 
-    public BigDecimal getAuthTime() {
-        return authTime;
+    public BigDecimal getExecuteTime() {
+        return executeTime;
     }
 
-    public void setAuthTime(BigDecimal authTime) {
-        this.authTime = authTime;
-    }
-
-    public BigDecimal getEncryptTime() {
-        return encryptTime;
-    }
-
-    public void setEncryptTime(BigDecimal encryptTime) {
-        this.encryptTime = encryptTime;
-    }
-
-    public BigDecimal getCompareTime() {
-        return compareTime;
-    }
-
-    public void setCompareTime(BigDecimal compareTime) {
-        this.compareTime = compareTime;
+    public void setExecuteTime(BigDecimal executeTime) {
+        this.executeTime = executeTime;
     }
 
     public BigDecimal getResult() {

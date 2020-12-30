@@ -12,15 +12,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("身份认证日志分页信息")
-public class AuthLogPager extends Page<AuthLog> {
+public class EncryptContentPager extends Page<AuthLog> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@ApiModelProperty("类型，Manual/Batch")
-	private String type;
+	@ApiModelProperty("创建用户")
+	private Integer createUser;
+	
+	@ApiModelProperty("内容（模糊匹配）")
+	private String content;
 	
 	@ApiModelProperty("查询起始日期，格式yyyy-MM-dd")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -32,12 +35,21 @@ public class AuthLogPager extends Page<AuthLog> {
 	@JsonFormat(pattern="yyyy-MM-dd", timezone="GMT+8")
 	private Date endTime;
 	
-	public String getType() {
-		return type;
+
+	public Integer getCreateUser() {
+		return createUser;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCreateUser(Integer createUser) {
+		this.createUser = createUser;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Date getStartTime() {

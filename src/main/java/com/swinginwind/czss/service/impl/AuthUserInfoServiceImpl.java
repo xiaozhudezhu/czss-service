@@ -34,7 +34,7 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 	private AuthUserInfoMapper userMapper;
 	
 	@Autowired
-	private CzssLib czssLib;
+	private CzssLib czssLibAuth;
 	
 	private boolean isRunningCreateTestUsers = false;
 	
@@ -61,8 +61,8 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 				userInfo.setId(MD5Util.encrypt(testMemberId));
 				String testName = "test_name_" + (i + 1);
 				String testPhone = "1" + StringUtils.leftPad(String.valueOf((i + 1)), 10, '0');
-				userInfo.setName(czssLib.encryptString(testName));
-				userInfo.setMobile(czssLib.encryptString(testPhone));
+				userInfo.setName(czssLibAuth.encryptString(testName));
+				userInfo.setMobile(czssLibAuth.encryptString(testPhone));
 				userInfo.setIdPlain(testMemberId);
 				userInfo.setNamePlain(testName);
 				userInfo.setMobilePlain(testPhone);
@@ -120,12 +120,12 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 		//log.setType("Batch");
 		if(userInfo != null) {
 			long startTimeEncrypt = System.nanoTime();
-			String encryptName = czssLib.encryptString(name);
-			String encryptMobile = czssLib.encryptString(mobile);
+			String encryptName = czssLibAuth.encryptString(name);
+			String encryptMobile = czssLibAuth.encryptString(mobile);
 			log.setEncryptTime(new BigDecimal(System.nanoTime() - startTimeEncrypt).divideToIntegralValue(new BigDecimal(1000)));
 			long startTimeCompare = System.nanoTime();
-			boolean encryptNameSame = czssLib.isSame(encryptName, userInfo.getName());
-			boolean encryptMobileSame = czssLib.isSame(encryptMobile, userInfo.getMobile());
+			boolean encryptNameSame = czssLibAuth.isSame(encryptName, userInfo.getName());
+			boolean encryptMobileSame = czssLibAuth.isSame(encryptMobile, userInfo.getMobile());
 			boolean encryptIsSame = encryptNameSame && encryptMobileSame;
 			log.setCompareTime(new BigDecimal(System.nanoTime() - startTimeCompare).divideToIntegralValue(new BigDecimal(1000)));
 			String decryptName = userInfo.getNamePlain();//czssLib.decryptString(userInfo.getName());
@@ -180,12 +180,12 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 		//log.setType("Batch");
 		if(userInfo != null) {
 			long startTimeEncrypt = System.nanoTime();
-			String encryptName = czssLib.encryptString(name);
-			String encryptMobile = czssLib.encryptString(mobile);
+			String encryptName = czssLibAuth.encryptString(name);
+			String encryptMobile = czssLibAuth.encryptString(mobile);
 			log.setEncryptTime(new BigDecimal(System.nanoTime() - startTimeEncrypt).divideToIntegralValue(new BigDecimal(1000)));
 			long startTimeCompare = System.nanoTime();
-			boolean encryptNameSame = czssLib.isSame(encryptName, userInfo.getName());
-			boolean encryptMobileSame = czssLib.isSame(encryptMobile, userInfo.getMobile());
+			boolean encryptNameSame = czssLibAuth.isSame(encryptName, userInfo.getName());
+			boolean encryptMobileSame = czssLibAuth.isSame(encryptMobile, userInfo.getMobile());
 			boolean encryptIsSame = encryptNameSame && encryptMobileSame;
 			log.setCompareTime(new BigDecimal(System.nanoTime() - startTimeCompare).divideToIntegralValue(new BigDecimal(1000)));
 			String decryptName = userInfo.getNamePlain();//czssLib.decryptString(userInfo.getName());
@@ -260,12 +260,12 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 				long startTimeAuth = System.nanoTime();
 				AuthUserInfo userInfo = queryByMemberId(memberId);
 				long startTimeEncrypt = System.nanoTime();
-				String encryptName = czssLib.encryptString(name);
-				String encryptMobile = czssLib.encryptString(mobile);
+				String encryptName = czssLibAuth.encryptString(name);
+				String encryptMobile = czssLibAuth.encryptString(mobile);
 				encryptTimeTotal += (System.nanoTime() - startTimeEncrypt);
 				long startTimeCompare = System.nanoTime();
-				boolean encryptNameSame = czssLib.isSame(encryptName, userInfo.getName());
-				boolean encryptMobileSame = czssLib.isSame(encryptMobile, userInfo.getMobile());
+				boolean encryptNameSame = czssLibAuth.isSame(encryptName, userInfo.getName());
+				boolean encryptMobileSame = czssLibAuth.isSame(encryptMobile, userInfo.getMobile());
 				//boolean encryptIsSame = encryptNameSame && encryptMobileSame;
 				compareTimeTotal += (System.nanoTime() - startTimeCompare);
 				String decryptName = userInfo.getNamePlain();//czssLib.decryptString(userInfo.getName());

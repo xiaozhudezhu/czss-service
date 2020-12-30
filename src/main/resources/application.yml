@@ -15,4 +15,5 @@ spring:
 czss:
   #libPath: D:\ssczlib.dll
   libPath: /test/ss_cz/ssczlib.so
+  libPath2: /test/ss_cz/czlib.so
   logEnabled: true

@@ -13,13 +13,16 @@ import com.swinginwind.czss.lib.CzssLib.CzssGoLib;
 public class CzssLibConfig {
 	
 	@Value("${czss.libPath}")
-	private String libPath;
+	private String libPathAuth;
+	
+	@Value("${czss.libPath2}")
+	private String libPathEncrypt;
 		
-	@Bean
-	public CzssLib getCzssLib() {
+	@Bean("czssLibAuth")
+	public CzssLib getCzssLibAuth() {
 		CzssLib lib = new CzssLib();
 		try {
-			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPath, CzssGoLib.class);
+			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPathAuth, CzssGoLib.class);
 			czssGoLib.Init();
 			lib.setCzssGoLib(czssGoLib);
 		}
@@ -29,7 +32,19 @@ public class CzssLibConfig {
 		return lib;
 	}
 	
-	
+	@Bean("czssLibEncrypt")
+	public CzssLib getCzssLibEncrypt() {
+		CzssLib lib = new CzssLib();
+		try {
+			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPathEncrypt, CzssGoLib.class);
+			czssGoLib.Init();
+			lib.setCzssGoLib(czssGoLib);
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+		}
+		return lib;
+	}
 	
 
 }

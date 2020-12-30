@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.swinginwind.czss.mapper.EncryptContentMapper" >
+  <resultMap id="BaseResultMap" type="com.swinginwind.czss.entity.EncryptContent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.swinginwind.czss.entity.EncryptContentWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="content_plain" property="contentPlain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_user, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, content_plain
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from encrypt_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from encrypt_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.swinginwind.czss.entity.EncryptContentWithBLOBs" >
+    insert into encrypt_content (id, create_user, create_time, 
+      content, content_plain)
+    values (#{id,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{contentPlain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.swinginwind.czss.entity.EncryptContentWithBLOBs" >
+    insert into encrypt_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="contentPlain != null" >
+        content_plain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentPlain != null" >
+        #{contentPlain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.swinginwind.czss.entity.EncryptContentWithBLOBs" >
+    update encrypt_content
+    <set >
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentPlain != null" >
+        content_plain = #{contentPlain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.swinginwind.czss.entity.EncryptContentWithBLOBs" >
+    update encrypt_content
+    set create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      content_plain = #{contentPlain,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.swinginwind.czss.entity.EncryptContent" >
+    update encrypt_content
+    set create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="select" resultMap="ResultMapWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from encrypt_content
+    <where>
+     <if test="createUser != null">
+     	and create_user = #{createUser,jdbcType=INTEGER}
+     </if>
+     <if test="content != null">
+     	and content_plain like concat('%', #{content,jdbcType=VARCHAR}, '%')
+     </if>
+     <if test="startTime != null">
+        and t.create_time &gt; #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+        and t.create_time &lt; date_add(#{endTime,jdbcType=TIMESTAMP}, interval 1 day)
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+</mapper>
