@@ -101,7 +101,7 @@ public class CzssEncryptController {
 
 
 	@PostMapping("/batchTest")
-	@ApiOperation("批量身份认证测试，后台线程执行")
+	@ApiOperation("批量测试，后台线程执行")
 	public Result<String> batchTest(@ApiParam(value = "批量运行次数", required = true) @RequestParam Integer n) {
 		if (n == null || n <= 0) {
 			return Result.newFailure("批量运行次数参数必须大于0", null);
