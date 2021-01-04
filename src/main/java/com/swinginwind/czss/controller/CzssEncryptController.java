@@ -58,7 +58,7 @@ public class CzssEncryptController {
 	
 	@GetMapping("/queryUsersAll")
 	@ApiOperation("查询所有账号")
-	public List<EncryptUserInfo> queryUsers(@ApiParam(value = "加密账号ID", required = true) @RequestParam Integer encryptUserId) {
+	public List<EncryptUserInfo> queryUsers() {
 		return encryptService.queryUsersAll();
 	}
 	

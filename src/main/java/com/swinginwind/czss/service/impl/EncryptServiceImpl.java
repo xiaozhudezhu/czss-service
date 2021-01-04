@@ -154,6 +154,12 @@ public class EncryptServiceImpl implements EncryptService {
 			boolean isCorrect = plainContent.equals(decryptContent);
 			if (isCorrect)
 				correctCount++;
+			else {
+				System.out.println("tArray:" + tArray);
+				System.out.println("plainContent:" + plainContent);
+				System.out.println("decryptContent:" + decryptContent);
+			}
+				
 			timeTotal += (System.nanoTime() - startTime);
 
 			if (((i + 1) % 100 == 0)) {
@@ -180,7 +186,7 @@ public class EncryptServiceImpl implements EncryptService {
 		List<EncryptUserInfo> list = new ArrayList<EncryptUserInfo>();
 		for(Integer id : userInfoMap.keySet()) {
 			List<EncryptUserInfo> list2 = userInfoMap.get(id);
-			list.add(list2.get(0));
+			list.add(list2.get(list2.size() - 1));
 		}
 		return list;
 		
