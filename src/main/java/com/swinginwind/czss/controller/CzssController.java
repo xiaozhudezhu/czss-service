@@ -65,14 +65,17 @@ public class CzssController {
 	@ApiOperation("身份认证接口，返回是否认证成功")
 	public Result<Map<String, Object>> verifyUserInfo(@ApiParam(value = "账号明文", required = true) @RequestParam String memberId,
 			@ApiParam(value = "用户名明文", required = true) @RequestParam String name,
-			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile) {
+			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile,
+			@ApiParam(value = "身份证号明文", required = true) @RequestParam String idNum) {
 		if (StringUtils.isEmpty(memberId))
 			return Result.newFailure("memberId不能为空", null);
 		if (StringUtils.isEmpty(name))
 			return Result.newFailure("name不能为空", null);
 		if (StringUtils.isEmpty(mobile))
 			return Result.newFailure("mobile不能为空", null);
-		Map<String, Object> result = userService.verifyUserInfo(memberId, name, mobile);
+		if (StringUtils.isEmpty(idNum))
+			return Result.newFailure("idNum不能为空", null);
+		Map<String, Object> result = userService.verifyUserInfo(memberId, name, mobile, idNum);
 		return Result.newSuccess(result);
 	}
 
@@ -80,14 +83,17 @@ public class CzssController {
 	@ApiOperation("手动身份认证测试，返回是否认证成功")
 	public Result<Boolean> manualVerifyUserInfo(@ApiParam(value = "账号明文", required = true) @RequestParam String memberId,
 			@ApiParam(value = "用户名明文", required = true) @RequestParam String name,
-			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile) {
+			@ApiParam(value = "手机号明文", required = true) @RequestParam String mobile,
+			@ApiParam(value = "身份证号明文", required = true) @RequestParam String idNum) {
 		if (StringUtils.isEmpty(memberId))
 			return Result.newFailure("memberId不能为空", null);
 		if (StringUtils.isEmpty(name))
 			return Result.newFailure("name不能为空", null);
 		if (StringUtils.isEmpty(mobile))
 			return Result.newFailure("mobile不能为空", null);
-		Boolean result = userService.manualVerifyUserInfo(memberId, name, mobile);
+		if (StringUtils.isEmpty(idNum))
+			return Result.newFailure("idNum不能为空", null);
+		Boolean result = userService.manualVerifyUserInfo(memberId, name, mobile, idNum);
 		return Result.newSuccess(result);
 	}
 

@@ -52,7 +52,7 @@
 		</javaClientGenerator>
 	
 	
-		<table tableName="encrypt_content" domainObjectName="EncryptContent"
+		<table tableName="auth_user_info" domainObjectName="AuthUserInfo"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false" schema="czss">

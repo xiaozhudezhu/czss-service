@@ -5,13 +5,15 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="id_num" jdbcType="VARCHAR" property="idNum" />
     <result column="id_plain" jdbcType="VARCHAR" property="idPlain" />
     <result column="name_plain" jdbcType="VARCHAR" property="namePlain" />
     <result column="mobile_plain" jdbcType="VARCHAR" property="mobilePlain" />
+    <result column="id_num_plain" jdbcType="VARCHAR" property="idNumPlain" />
     <result column="row_num" jdbcType="INTEGER" property="rowNum" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, mobile, id_plain, name_plain, mobile_plain, row_num
+    id, name, mobile, id_num, id_plain, name_plain, mobile_plain, id_num_plain, row_num
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -24,12 +26,12 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.swinginwind.czss.entity.AuthUserInfo">
-    insert into auth_user_info (id, name, mobile, 
-      id_plain, name_plain, mobile_plain, 
+    insert into auth_user_info (id, name, mobile, id_num,
+      id_plain, name_plain, mobile_plain, id_num_plain,
       row_num)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, 
       #{idPlain,jdbcType=VARCHAR}, #{namePlain,jdbcType=VARCHAR}, #{mobilePlain,jdbcType=VARCHAR}, 
-      #{rowNum,jdbcType=INTEGER})
+      #{idNumPlain,jdbcType=VARCHAR}, #{rowNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.swinginwind.czss.entity.AuthUserInfo">
     insert into auth_user_info
@@ -43,6 +45,9 @@
       <if test="mobile != null">
         mobile,
       </if>
+      <if test="idNum != null">
+        id_num,
+      </if>
       <if test="idPlain != null">
         id_plain,
       </if>
@@ -51,6 +56,9 @@
       </if>
       <if test="mobilePlain != null">
         mobile_plain,
+      </if>
+      <if test="idNumPlain != null">
+        id_num_plain,
       </if>
       <if test="rowNum != null">
         row_num,
@@ -66,6 +74,9 @@
       <if test="mobile != null">
         #{mobile,jdbcType=VARCHAR},
       </if>
+      <if test="idNum != null">
+        #{idNum,jdbcType=VARCHAR},
+      </if>
       <if test="idPlain != null">
         #{idPlain,jdbcType=VARCHAR},
       </if>
@@ -74,6 +85,9 @@
       </if>
       <if test="mobilePlain != null">
         #{mobilePlain,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumPlain != null">
+        #{idNumPlain,jdbcType=VARCHAR},
       </if>
       <if test="rowNum != null">
         #{rowNum,jdbcType=INTEGER},
@@ -89,6 +103,9 @@
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
+      <if test="idNum != null">
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
       <if test="idPlain != null">
         id_plain = #{idPlain,jdbcType=VARCHAR},
       </if>
@@ -97,6 +114,9 @@
       </if>
       <if test="mobilePlain != null">
         mobile_plain = #{mobilePlain,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumPlain != null">
+        id_num_plain = #{idNumPlain,jdbcType=VARCHAR},
       </if>
       <if test="rowNum != null">
         row_num = #{rowNum,jdbcType=INTEGER},
@@ -108,9 +128,11 @@
     update auth_user_info
     set name = #{name,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
       id_plain = #{idPlain,jdbcType=VARCHAR},
       name_plain = #{namePlain,jdbcType=VARCHAR},
       mobile_plain = #{mobilePlain,jdbcType=VARCHAR},
+      id_num_plain = #{idNumPlain,jdbcType=VARCHAR},
       row_num = #{rowNum,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -137,17 +159,20 @@
      <if test="mobile != null and mobile != ''">
      	and mobile_plain like concat('%', #{mobile,jdbcType=VARCHAR}, '%')
      </if>
+     <if test="idNum != null and idNum != ''">
+     	and id_num_plain like concat('%', #{idNum,jdbcType=VARCHAR}, '%')
+     </if>
     </where>
   </select>
   <insert id="insertBatch">
-    insert into auth_user_info (id, name, mobile, 
-      id_plain, name_plain, mobile_plain, 
+    insert into auth_user_info (id, name, mobile, id_num, 
+      id_plain, name_plain, mobile_plain, id_num_plain,
       row_num)
     values 
     <foreach collection ="list" item="user" separator =",">
-         (#{user.id,jdbcType=VARCHAR}, #{user.name,jdbcType=VARCHAR}, #{user.mobile,jdbcType=VARCHAR}, 
+         (#{user.id,jdbcType=VARCHAR}, #{user.name,jdbcType=VARCHAR}, #{user.mobile,jdbcType=VARCHAR}, #{user.idNum,jdbcType=VARCHAR}, 
       #{user.idPlain,jdbcType=VARCHAR}, #{user.namePlain,jdbcType=VARCHAR}, #{user.mobilePlain,jdbcType=VARCHAR}, 
-      #{user.rowNum,jdbcType=INTEGER})
+      #{user.idNumPlain,jdbcType=VARCHAR}, #{user.rowNum,jdbcType=INTEGER})
     </foreach >
   </insert>
 </mapper>

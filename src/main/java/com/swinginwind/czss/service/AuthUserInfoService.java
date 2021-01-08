@@ -12,7 +12,7 @@ public interface AuthUserInfoService {
 	
 	public AuthUserInfo queryByMemberId(String memberId);
 	
-	public boolean manualVerifyUserInfo(String memberId, String name, String mobile);
+	public boolean manualVerifyUserInfo(String memberId, String name, String mobile, String idNum);
 	
 	public void batchVerifyUserInfo(int runTimes);
 	
@@ -20,7 +20,7 @@ public interface AuthUserInfoService {
 
 	boolean isRunningCreateTestUsers();
 
-	Map<String, Object> verifyUserInfo(String memberId, String name, String mobile);
+	Map<String, Object> verifyUserInfo(String memberId, String name, String mobile, String idNum);
 
 
 }

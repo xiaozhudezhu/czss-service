@@ -26,6 +26,14 @@ public class AuthUserInfo {
      */
 	@ApiModelProperty("手机号（加密后）")
     private String mobile;
+	
+	/**
+     * 
+     * 表 : auth_user_info
+     * 对应字段 : id_num
+     */
+	@ApiModelProperty("身份证号（加密后）")
+    private String idNum;
 
     /**
      * 
@@ -50,6 +58,14 @@ public class AuthUserInfo {
      */
 	@ApiModelProperty("手机号（明文）")
     private String mobilePlain;
+	
+	/**
+     * 
+     * 表 : auth_user_info
+     * 对应字段 : id_num_plain
+     */
+	@ApiModelProperty("身份证号（明文）")
+    private String idNumPlain;
 
     /**
      * 
@@ -114,4 +130,20 @@ public class AuthUserInfo {
     public void setRowNum(Integer rowNum) {
         this.rowNum = rowNum;
     }
+
+	public String getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(String idNum) {
+		this.idNum = idNum;
+	}
+
+	public String getIdNumPlain() {
+		return idNumPlain;
+	}
+
+	public void setIdNumPlain(String idNumPlain) {
+		this.idNumPlain = idNumPlain;
+	}
 }

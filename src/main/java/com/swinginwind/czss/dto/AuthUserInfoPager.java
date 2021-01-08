@@ -19,6 +19,9 @@ public class AuthUserInfoPager extends Page<AuthUserInfo> {
 	
 	@ApiModelProperty("手机号（模糊匹配）")
 	private String mobile;
+	
+	@ApiModelProperty("身份证号（模糊匹配）")
+	private String idNum;
 
 	/**
 	 * @return the name
@@ -46,6 +49,14 @@ public class AuthUserInfoPager extends Page<AuthUserInfo> {
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(String idNum) {
+		this.idNum = idNum;
 	}
 
 }
