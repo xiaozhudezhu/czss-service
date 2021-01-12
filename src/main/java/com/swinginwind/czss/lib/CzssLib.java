@@ -38,6 +38,10 @@ public class CzssLib {
 				new CzssGoLib.GoString.ByValue(str));
 		return pointer.getString(0);
 	}
+	
+	public int execute(String imageStr) {
+		return czssGoLib.Execute(new CzssGoLib.GoString.ByValue(imageStr));
+	}
 
 	/**
 	 * @return the czssGoLib
@@ -68,6 +72,8 @@ public class CzssLib {
 
 		Pointer DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue jsonstr);
+		
+		int Execute(GoString.ByValue imageStr);
 
 		// C type struct { const char *p; GoInt n; }
 		public class GoString extends Structure {

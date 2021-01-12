@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,10 +63,10 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 				String testMemberId = "test_member_id_" + (i + 1);
 				userInfo.setId(MD5Util.encrypt(testMemberId));
 				String testName = "test_name_" + (i + 1);
-				// String testPhone = "1" +
-				// StringUtils.leftPad(String.valueOf((i + 1)), 10, '0');
-				String testPhone = ChineseMobileNumberGenerator.getInstance().generate();
-				String testIdNum = ChineseIDCardNumberGenerator.getInstance().generate();
+				String testPhone = "1" + StringUtils.leftPad(String.valueOf((i + 1)), 10, '0');
+				//String testPhone = ChineseMobileNumberGenerator.getInstance().generate();
+				String testIdNum = "310" + StringUtils.leftPad(String.valueOf((i + 1)), 15, '0');;
+				//String testIdNum = ChineseIDCardNumberGenerator.getInstance().generate();
 				userInfo.setName(czssLibAuth.encryptString(testName));
 				userInfo.setMobile(czssLibAuth.encryptString(testPhone));
 				userInfo.setIdNum(czssLibAuth.encryptString(testIdNum));

@@ -17,6 +17,9 @@ public class CzssLibConfig {
 	
 	@Value("${czss.libPath2}")
 	private String libPathEncrypt;
+	
+	@Value("${czss.libPath3}")
+	private String libPathOCR;
 		
 	@Bean("czssLibAuth")
 	public CzssLib getCzssLibAuth() {
@@ -38,6 +41,19 @@ public class CzssLibConfig {
 		try {
 			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPathEncrypt, CzssGoLib.class);
 			czssGoLib.Init();
+			lib.setCzssGoLib(czssGoLib);
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+		}
+		return lib;
+	}
+	
+	@Bean("czssLibOCR")
+	public CzssLib getCzssLibOCR() {
+		CzssLib lib = new CzssLib();
+		try {
+			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPathOCR, CzssGoLib.class);
 			lib.setCzssGoLib(czssGoLib);
 		}
 		catch(Throwable e) {
