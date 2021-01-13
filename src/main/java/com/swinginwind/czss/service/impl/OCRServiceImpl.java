@@ -17,4 +17,9 @@ public class OCRServiceImpl implements OCRService {
 		return czssLibOCR.execute(image);
 	}
 
+	@Override
+	public String encryptImage(String image) {
+		return czssLibOCR.encryptImage(image);
+	}
+
 }

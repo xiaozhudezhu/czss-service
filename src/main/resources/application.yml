@@ -16,5 +16,6 @@ czss:
   #libPath: D:\ssczlib.dll
   libPath: /test/ss_cz/ssczlib.so
   libPath2: /test/ss_cz/czlib.so
-  libPath3: C:/Users/Administrator/Desktop/test1
+  libPath3: /test/ss_cz/modelxxlib.so
+  #libPath3: modelxxlib
   logEnabled: true

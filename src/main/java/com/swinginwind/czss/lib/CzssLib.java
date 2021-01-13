@@ -39,6 +39,11 @@ public class CzssLib {
 		return pointer.getString(0);
 	}
 	
+	public String encryptImage(String imageStr) {
+		Pointer pointer = czssGoLib.EncryptImage(new CzssGoLib.GoString.ByValue(imageStr));
+		return pointer.getString(0);
+	}
+	
 	public int execute(String imageStr) {
 		return czssGoLib.Execute(new CzssGoLib.GoString.ByValue(imageStr));
 	}
@@ -72,6 +77,8 @@ public class CzssLib {
 
 		Pointer DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue jsonstr);
+		
+		Pointer EncryptImage(GoString.ByValue imageStr);
 		
 		int Execute(GoString.ByValue imageStr);
 

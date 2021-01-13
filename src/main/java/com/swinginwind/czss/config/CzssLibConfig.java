@@ -54,6 +54,7 @@ public class CzssLibConfig {
 		CzssLib lib = new CzssLib();
 		try {
 			CzssGoLib czssGoLib = (CzssGoLib) Native.loadLibrary(libPathOCR, CzssGoLib.class);
+			czssGoLib.Init();
 			lib.setCzssGoLib(czssGoLib);
 		}
 		catch(Throwable e) {

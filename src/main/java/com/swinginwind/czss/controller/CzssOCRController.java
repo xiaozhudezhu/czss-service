@@ -21,6 +21,14 @@ public class CzssOCRController {
 	@Autowired
 	private OCRService ocrService;
 
+	@PostMapping("/encryptImage")
+	@ApiOperation("加密图像，返回加密后的图像矩阵")
+	public Result<String> encryptImage(@ApiParam(value = "灰度图像", required = true) @RequestParam String image) {
+		if (image == null)
+			return Result.newFailure("image不能为空", null);
+		String result = ocrService.encryptImage(image);
+		return Result.newSuccess(result);
+	}
 	
 	@PostMapping("/execute")
 	@ApiOperation("识别图像")
