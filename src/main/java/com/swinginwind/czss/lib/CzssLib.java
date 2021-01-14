@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sun.jna.Library;
-import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
 public class CzssLib {
@@ -12,13 +11,11 @@ public class CzssLib {
 	private CzssGoLib czssGoLib;
 
 	public String encryptString(String plain) {
-		Pointer pointer = czssGoLib.EncryptStringJson(new CzssGoLib.GoString.ByValue(plain));
-		return pointer.getString(0);
+		return czssGoLib.EncryptStringJson(new CzssGoLib.GoString.ByValue(plain));
 	}
 
 	public String decryptString(String str) {
-		Pointer pointer = czssGoLib.DecryptStringJson(new CzssGoLib.GoString.ByValue(str));
-		return pointer.getString(0);
+		return czssGoLib.DecryptStringJson(new CzssGoLib.GoString.ByValue(str));
 	}
 
 	public boolean isSame(String str1, String str2) {
@@ -26,22 +23,19 @@ public class CzssLib {
 	}
 
 	public String encryptString3T(String id1, String id2, String id3, String plain) {
-		Pointer pointer = czssGoLib.EncryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
+		return czssGoLib.EncryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
 				new CzssGoLib.GoString.ByValue(id2), new CzssGoLib.GoString.ByValue(id3),
 				new CzssGoLib.GoString.ByValue(plain));
-		return pointer.getString(0);
 	}
 
 	public String decryptString3T(String id1, String id2, String id3, String str) {
-		Pointer pointer = czssGoLib.DecryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
+		return czssGoLib.DecryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
 				new CzssGoLib.GoString.ByValue(id2), new CzssGoLib.GoString.ByValue(id3),
 				new CzssGoLib.GoString.ByValue(str));
-		return pointer.getString(0);
 	}
 	
 	public String encryptImage(String imageStr) {
-		Pointer pointer = czssGoLib.EncryptImage(new CzssGoLib.GoString.ByValue(imageStr));
-		return pointer.getString(0);
+		return czssGoLib.EncryptImage(new CzssGoLib.GoString.ByValue(imageStr));
 	}
 	
 	public int execute(String imageStr) {
@@ -66,19 +60,19 @@ public class CzssLib {
 	public static interface CzssGoLib extends Library {
 		void Init();
 
-		Pointer EncryptStringJson(GoString.ByValue plain);
+		String EncryptStringJson(GoString.ByValue plain);
 
-		Pointer DecryptStringJson(GoString.ByValue jsonstr);
+		String DecryptStringJson(GoString.ByValue jsonstr);
 
 		boolean IsSame(GoString.ByValue cstr1, GoString.ByValue cstr2);
 
-		Pointer EncryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
+		String EncryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue plain);
 
-		Pointer DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
+		String DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue jsonstr);
 		
-		Pointer EncryptImage(GoString.ByValue imageStr);
+		String EncryptImage(GoString.ByValue imageStr);
 		
 		int Execute(GoString.ByValue imageStr);
 
