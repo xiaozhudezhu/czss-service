@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sun.jna.Library;
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
 public class CzssLib {
@@ -11,11 +13,17 @@ public class CzssLib {
 	private CzssGoLib czssGoLib;
 
 	public String encryptString(String plain) {
-		return czssGoLib.EncryptStringJson(new CzssGoLib.GoString.ByValue(plain));
+		Pointer pointer = czssGoLib.EncryptStringJson(new CzssGoLib.GoString.ByValue(plain));
+		String result = pointer.getString(0);
+		free(pointer);
+		return result;
 	}
 
 	public String decryptString(String str) {
-		return czssGoLib.DecryptStringJson(new CzssGoLib.GoString.ByValue(str));
+		Pointer pointer = czssGoLib.DecryptStringJson(new CzssGoLib.GoString.ByValue(str));
+		String result = pointer.getString(0);
+		free(pointer);
+		return result;
 	}
 
 	public boolean isSame(String str1, String str2) {
@@ -23,23 +31,38 @@ public class CzssLib {
 	}
 
 	public String encryptString3T(String id1, String id2, String id3, String plain) {
-		return czssGoLib.EncryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
+		Pointer pointer = czssGoLib.EncryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
 				new CzssGoLib.GoString.ByValue(id2), new CzssGoLib.GoString.ByValue(id3),
 				new CzssGoLib.GoString.ByValue(plain));
+		String result = pointer.getString(0);
+		free(pointer);
+		return result;
 	}
 
 	public String decryptString3T(String id1, String id2, String id3, String str) {
-		return czssGoLib.DecryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
+		Pointer pointer = czssGoLib.DecryptString3TJson(new CzssGoLib.GoString.ByValue(id1),
 				new CzssGoLib.GoString.ByValue(id2), new CzssGoLib.GoString.ByValue(id3),
 				new CzssGoLib.GoString.ByValue(str));
+		String result = pointer.getString(0);
+		free(pointer);
+		return result;
 	}
 	
 	public String encryptImage(String imageStr) {
-		return czssGoLib.EncryptImage(new CzssGoLib.GoString.ByValue(imageStr));
+		Pointer pointer = czssGoLib.EncryptImage(new CzssGoLib.GoString.ByValue(imageStr));
+		String result = pointer.getString(0);
+		free(pointer);
+		return result;
 	}
 	
 	public int execute(String imageStr) {
 		return czssGoLib.Execute(new CzssGoLib.GoString.ByValue(imageStr));
+	}
+	
+	public void free(Pointer pointer) {
+		long peer = Pointer.nativeValue(pointer);
+		Native.free(peer);//手动释放内存
+		Pointer.nativeValue(pointer, 0);//避免Memory对象被GC时重复执行Nativ.free()方法
 	}
 
 	/**
@@ -60,19 +83,19 @@ public class CzssLib {
 	public static interface CzssGoLib extends Library {
 		void Init();
 
-		String EncryptStringJson(GoString.ByValue plain);
+		Pointer EncryptStringJson(GoString.ByValue plain);
 
-		String DecryptStringJson(GoString.ByValue jsonstr);
+		Pointer DecryptStringJson(GoString.ByValue jsonstr);
 
 		boolean IsSame(GoString.ByValue cstr1, GoString.ByValue cstr2);
 
-		String EncryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
+		Pointer EncryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue plain);
 
-		String DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
+		Pointer DecryptString3TJson(GoString.ByValue id1, GoString.ByValue id2, GoString.ByValue id3,
 				GoString.ByValue jsonstr);
 		
-		String EncryptImage(GoString.ByValue imageStr);
+		Pointer EncryptImage(GoString.ByValue imageStr);
 		
 		int Execute(GoString.ByValue imageStr);
 
