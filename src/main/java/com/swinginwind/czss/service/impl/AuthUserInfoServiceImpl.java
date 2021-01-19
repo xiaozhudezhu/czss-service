@@ -64,9 +64,12 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 				userInfo.setId(MD5Util.encrypt(testMemberId));
 				String testName = "test_name_" + (i + 1);
 				String testPhone = "1" + StringUtils.leftPad(String.valueOf((i + 1)), 10, '0');
-				//String testPhone = ChineseMobileNumberGenerator.getInstance().generate();
-				String testIdNum = "310" + StringUtils.leftPad(String.valueOf((i + 1)), 15, '0');;
-				//String testIdNum = ChineseIDCardNumberGenerator.getInstance().generate();
+				// String testPhone =
+				// ChineseMobileNumberGenerator.getInstance().generate();
+				String testIdNum = "310" + StringUtils.leftPad(String.valueOf((i + 1)), 15, '0');
+				;
+				// String testIdNum =
+				// ChineseIDCardNumberGenerator.getInstance().generate();
 				userInfo.setName(czssLibAuth.encryptString(testName));
 				userInfo.setMobile(czssLibAuth.encryptString(testPhone));
 				userInfo.setIdNum(czssLibAuth.encryptString(testIdNum));
@@ -122,7 +125,6 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 		log.setCreateTime(new Date());
 		log.setRunTimes(1);
 		log.setType("Normal");
-		// log.setType("Batch");
 		if (userInfo != null) {
 			long startTimeEncrypt = System.nanoTime();
 			String encryptName = czssLibAuth.encryptString(name);
@@ -156,27 +158,28 @@ public class AuthUserInfoServiceImpl implements AuthUserInfoService {
 				result = false;
 		} else
 			log.setRemark("User Not Exists");
-		ObjectMapper om = new ObjectMapper();
-		Map<String, Object> json = new HashMap<String, Object>();
-		json.put("result", result);
-		json.put("inputMemberId", memberId);
-		json.put("inputName", name);
-		json.put("inputMobile", mobile);
-		json.put("inputIdNum", idNum);
-		String detail = null;
-		try {
-			detail = om.writeValueAsString(json);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		log.setDetail(detail);
-		log.setProgressStatus("Completed");
-		log.setAuthTime(new BigDecimal(System.nanoTime() - startTimeAuth).divideToIntegralValue(new BigDecimal(1000)));
-		if (logEnabled)
+		if (logEnabled) {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> json = new HashMap<String, Object>();
+			json.put("result", result);
+			json.put("inputMemberId", memberId);
+			json.put("inputName", name);
+			json.put("inputMobile", mobile);
+			json.put("inputIdNum", idNum);
+			String detail = null;
+			try {
+				detail = om.writeValueAsString(json);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			log.setDetail(detail);
+			log.setProgressStatus("Completed");
+			log.setAuthTime(
+					new BigDecimal(System.nanoTime() - startTimeAuth).divideToIntegralValue(new BigDecimal(1000)));
 			logMapper.insert(log);
+			map.put("detail", log);
+		}
 		map.put("result", result);
-		map.put("detail", log);
 		return map;
 	}
 
